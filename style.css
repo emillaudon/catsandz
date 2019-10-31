@@ -1,0 +1,147 @@
+.body {
+    width: 100%;
+    height: 100%;
+}
+canvas {
+    width: 100vw;
+    height: 100vh;
+}
+.first {
+    position: absolute;
+    left: 0;
+    top: 0; 
+    z-index: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.second {
+    position: absolute;
+    left: 0;
+    top: 0; 
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+
+}
+
+.third {
+    position: absolute;
+    left: 0;
+    top: 0; 
+    z-index: 2;
+
+}
+
+.fourth {
+    position: absolute;
+    left: 0;
+    top: 0; 
+    z-index: 3;
+
+}
+
+.fifth {
+    position: absolute;
+    left: 0;
+    top: 0; 
+    z-index: 4;
+
+}
+
+.sixth {
+    position: absolute;
+    left: 0;
+    top: 0; 
+    z-index: 5;
+
+}
+
+.seventh {
+    position: absolute;
+    left: 0;
+    top: 0; 
+    z-index: 6;
+
+}
+
+.eight {
+    position: absolute;
+    left: 0;
+    top: 0; 
+    z-index: 7;
+
+}
+
+.ninth {
+    position: absolute;
+    left: 0;
+    top: 0; 
+    z-index: 8;
+
+}
+
+.tenth {
+    position: absolute;
+    left: 0;
+    top: 0; 
+    z-index: 9;
+
+}
+
+.eleventh {
+    position: absolute;
+    left: 0;
+    top: 0; 
+    z-index: 10;
+
+}
+
+.twelth {
+    position: absolute;
+    left: 0;
+    top: 0; 
+    z-index: 11;
+
+}
+
+.thirteenth {
+    position: absolute;
+    left: 0;
+    top: 0; 
+    z-index: 12;
+
+}
+
+.fourteenth {
+    position: absolute;
+    left: 0;
+    top: 0; 
+    z-index: 13;
+    margin: 0px;
+
+}
+
+.fifteenth {
+    position: absolute;
+    left: 0;
+    top: 0; 
+    z-index: 14;
+
+}
+
+.sixteenth {
+    position: absolute;
+    left: 0;
+    top: 0; 
+    z-index: 15;
+
+}
+
+.movement {
+    position: absolute;
+    left: 0;
+    top: 0; 
+    z-index: 20;
+
+}
