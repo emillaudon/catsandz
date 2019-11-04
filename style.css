@@ -2,7 +2,15 @@
     width: 100%;
     height: 100%;
 }
-canvas {
+.lose {
+    position: absolute; 
+    left: 0;
+    top: 0;
+    z-index: 100;
+    opacity: 0;
+}
+
+.canvas {
     width: 100vw;
     height: 100vh;
 }
@@ -11,8 +19,7 @@ canvas {
     left: 0;
     top: 0; 
     z-index: 0;
-    width: 100vw;
-    height: 100vh;
+
 }
 
 .second {
@@ -20,8 +27,7 @@ canvas {
     left: 0;
     top: 0; 
     z-index: 1;
-    width: 100vw;
-    height: 100vh;
+
 
 }
 
@@ -122,15 +128,16 @@ canvas {
 
 }
 
-.fifteenth {
+.fadelayer {
     position: absolute;
     left: 0;
     top: 0; 
     z-index: 14;
+    opacity: 0;
 
 }
 
-.sixteenth {
+.fifteenth {
     position: absolute;
     left: 0;
     top: 0; 
@@ -138,10 +145,33 @@ canvas {
 
 }
 
+.sixteenth {
+    position: absolute;
+    left: 0;
+    top: 0; 
+    z-index: 16;
+
+}
+.seventeenth {
+    position: absolute;
+    left: 0;
+    top: 0; 
+    z-index: 17;
+
+}
+
+.zombieLayer {
+    position: absolute;
+    left: 0;
+    top: 0; 
+    z-index: 300;
+
+}
+
 .movement {
     position: absolute;
     left: 0;
     top: 0; 
-    z-index: 20;
+    z-index: 200;
 
 }

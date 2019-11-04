@@ -8,9 +8,18 @@ let y = 1;
 
 let cat1X = Math.floor(Math.random() * (3 - 1) + 1);
 let cat1Y = Math.floor(Math.random() * (3 - 1) + 1);
+checkCat1 = () => {
+    if (cat1X === x && cat1Y === y) {
+        cat1X = Math.floor(Math.random() * (3 - 1) + 1);
+        cat1Y = Math.floor(Math.random() * (3 - 1) + 1);
+        checkCat1();
+    }
 
+}
+checkCat1();
 let cat2X = Math.floor(Math.random() * (6 - 3) + 3);
 let cat2Y = Math.floor(Math.random() * (6 - 3) + 3);
+
 
 let zombieX = Math.floor(Math.random() * (6 - 2) + 2);
 let zombieY = Math.floor(Math.random() * (6 - 2) + 2);
@@ -34,6 +43,7 @@ let map = [];
 //Den här funktionen autogenerarar kartan varje gång spelet startas
 
 makeMap = () => {
+    map = [];
     for (k = 0; k < 7; k += 1) {
         let tempArrayX = [];
 
@@ -121,6 +131,15 @@ let canvas16 = document.createElement("canvas");
 document.body.appendChild(canvas16);
 canvas16.classList.add("sixteenth");
 
+let canvas17 = document.createElement("canvas");
+document.body.appendChild(canvas17);
+canvas17.classList.add("fadelayer");
+
+let canvas18 = document.createElement("canvas");
+document.body.appendChild(canvas18);
+canvas18.classList.add("seventeenth");
+
+
 
 
 canvas.width = 414;
@@ -171,6 +190,11 @@ canvas15.height = 846;
 canvas16.width = 414;
 canvas16.height = 846;
 
+canvas17.width = 414;
+canvas17.height = 846;
+
+canvas18.width = 414;
+canvas18.height = 846;
 
 let layer1 = canvas.getContext('2d');
 let layer2 = canvas2.getContext('2d');
@@ -188,7 +212,32 @@ let layer13 = canvas13.getContext('2d');
 let layer14 = canvas14.getContext('2d');
 let mapLayer1 = canvas15.getContext('2d');
 let mapLayer2 = canvas16.getContext('2d');
+let mapLayer3= canvas18.getContext('2d');
+let fadeLayer= canvas17.getContext('2d');
 
+
+layer1.imageSmoothingEnabled = false;
+layer2.imageSmoothingEnabled = false;
+layer3.imageSmoothingEnabled = false;
+layer4.imageSmoothingEnabled = false;
+layer5.imageSmoothingEnabled = false;
+layer6.imageSmoothingEnabled = false;
+layer7.imageSmoothingEnabled = false;
+layer8.imageSmoothingEnabled = false;
+layer9.imageSmoothingEnabled = false;
+layer10.imageSmoothingEnabled = false;
+layer11.imageSmoothingEnabled = false;
+layer12.imageSmoothingEnabled = false;
+layer13.imageSmoothingEnabled = false;
+layer14.imageSmoothingEnabled = false;
+mapLayer1.imageSmoothingEnabled = false;
+mapLayer2.imageSmoothingEnabled = false;
+mapLayer3.imageSmoothingEnabled = false;
+
+
+
+fadeLayer.fillStyle= "black";    
+fadeLayer.fillRect(0, 0, 414, 846); 
 
 let first = new Image();
 first.src = "Art/Backgrounds/PixelForest/PNG/Background layers/Layer_0010_1.png";
@@ -293,6 +342,12 @@ mapPointer.onload = function() {
     mapLayer2.drawImage(mapPointer, mapX, mapY);
 }
 
+let menyKnapp = new Image();
+menyKnapp.src="Art/kugghjul.png";
+menyKnapp.onload = function() {
+    movement.drawImage(menyKnapp, 370 , 10 );
+}
+
 
 //Funktion för att gå till annan plats, raderar först all och ritar sen upp baserat på map arrayen
 changePage = () => {
@@ -325,6 +380,7 @@ changePage = () => {
         layer14.clearRect(0, 0, canvas.width, canvas.height);
 
         mapLayer2.clearRect(0, 0, canvas.width, canvas.height);
+        mapLayer3.clearRect(0, 0, canvas.width, canvas.height);
 
         layer1.drawImage(first, map[x][y][0], 0);
         layer2.drawImage(second, map[x][y][1], backgroundY);
@@ -338,8 +394,9 @@ changePage = () => {
         layer10.drawImage(tenth, map[x][y][9], backgroundY);
         layer11.drawImage(eleventh, map[x][y][10], backgroundY);
         layer12.drawImage(twelth, map[x][y][11], backgroundY);
+        movement.drawImage(menyKnapp, 370 , 10 );
         
-        loadHouses();
+        
         mapLayer2.drawImage(mapPointer, mapX, mapY);
 
         if (-360 > map[x][y][13]) {
@@ -356,9 +413,21 @@ changePage = () => {
         if (x === cat2X && y === cat2Y) {
             layer14.drawImage(catTwo,  270, backgroundY + 650, 100, 100);
         }
+        if (x === zombieX && y === zombieY) {
+            layer14.drawImage(zombie,  120, backgroundY + 420, 200, 300);
+        }
 
+        if (zombieX === x + 1 && zombieY === y || zombieY === y + 1 && zombieX === x || zombieX === x - 1 && zombieY === y || zombieY === y - 1 && zombieX === x){
+            mapLayer3.drawImage(zombie, (zombieX * 25) + 233, 230 - (zombieY * 18), 10, 12);
+        }
+        if (cat1X === x + 1 && cat1Y === y || cat1Y === y + 1 && cat1X === x || cat1X === x - 1 && cat1Y === y || cat1Y === y - 1 && cat1X === x){
+            mapLayer3.drawImage(catOne, (cat1X * 25) + 233, 230 - (cat1Y * 18), 10, 12);
+        }
+        if (cat2X === x + 1 && cat2Y === y || cat2Y === y + 1 && cat2X === x || cat2X === x - 1 && cat2Y === y || cat2Y === y - 1 && cat2X === x) {
+            mapLayer3.drawImage(catTwo, (cat2X * 25) + 233, 230 - (cat2Y * 18), 10, 12);
+        }
+        loadHouses();
     }
-
 
 
 /*

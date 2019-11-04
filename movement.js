@@ -8,6 +8,7 @@ canvasMovement.height = 846;
 let movement = canvasMovement.getContext('2d');
 
 //ladda in höger pil
+/*
 let rightArrow = new Image();
 rightArrow.src = "Art/pilE.png";
 rightArrow.onload = function() {
@@ -28,6 +29,56 @@ let downArrow = new Image();
 downArrow.src="Art/pilS.png";
 downArrow.onload = function() {
     movement.drawImage(downArrow, 182, 780);
+}
+*/
+
+pilar.onload = function() {
+    movement.drawImage(pilar, 0, 480);
+}
+
+let loading = false;
+fadeScreenMove = () => {
+    if (wonAlready === false || lostAlready === false && loading === false) {
+        loading = true;
+        console.log("true");
+        let time = 0;
+        let opacity = 0;
+        let id = setInterval(frame, 10);
+        function frame() {
+        if (time == 200) {
+            clearInterval(id);
+        } else if (time < 100){
+        opacity += 0.01;
+        time++;
+        canvas17.style.opacity = opacity;
+        } else if (time === 100) { 
+            moveCat1();
+            moveCat2();
+            zombieMove();
+            changePage();
+            loadHouses();
+            opacity -= 0.01;
+            time++;
+            canvas17.style.opacity = opacity;
+        } else {
+            opacity -= 0.01;
+            time++;
+            canvas17.style.opacity = opacity;
+        }
+        if (time === 200) {
+            loading = false;
+            if (zombieX === x && zombieY === y) {
+                loading = true;
+            }
+            console.log("false");
+        }
+        }
+    
+        }
+    setTimeout(checkLoss(), 2000);
+    if (lostAlready === true) {
+        loading = true;
+    }
 }
 
 let catMovement = 0.25;
@@ -120,46 +171,39 @@ clicked = (e) => {
     let v = e.clientY;
     console.log("x = " + h);
     console.log("y =" + v);
-    if (h>5 && h<46 && v>633 && v<674) {
+    if (h>5 && h<49 && v>623 && v<664 && loading === false) {
         console.log("vänster");
         if (x > 0) {
         x -= 1;
         mapX -= 25
-        changePage();
-        moveCat1();
-        moveCat2();
-        loadHouses();
+        
+        fadeScreenMove();
         }
-    } else if (h>365 && h<405 && v>633 && v<674) {
+    } else if (h>369 && h<408 && v>623 && v<664 && loading === false) {
         console.log("höger");
         if (x < 6) {
         x += 1;
         mapX += 25;
-        changePage();
-        moveCat1();
-        moveCat2();
-        loadHouses();
+        
+        fadeScreenMove();
         }
     }
-    if (h>184 && h<226 && v>785 && v<824) {
+    if (h>184 && h<226 && v>791 && v<836 && loading === false) {
         console.log("ner");
         if (y > 0) {
         y -= 1;
         mapY += 20
-        changePage();
-        moveCat1();
-        moveCat2();
-        loadHouses();
+        
+        fadeScreenMove();
         }
-    } else if (h>183 && h<228 && v>420 && v<469) {
+    } else if (h>183 && h<228 && v>487 && v<533 && loading === false) {
         console.log("upp");
         if (y < 6) {
         y += 1;
         mapY -= 20
-        changePage();
-        moveCat1();
-        moveCat2();
-        loadHouses();
+        
+        
+        fadeScreenMove();
         }
         //Klick på katt2
     } else if (h>276 && h<368 && v>708 && v<798 && cat2X === x && cat2Y === y) {
@@ -195,6 +239,12 @@ clicked = (e) => {
                 console.log("funkar");
                 }
             }
+    checkWin();
+    if(lostAlready === true && h>92 && h<321 && v>441 && v<480 || wonAlready === true && h>92 && h<321 && v>441 && v<480) {
+        console.log("restart");
+        restart();
+    }
 }
 //Lyssnar efter klick
 canvasMovement.addEventListener("mousedown", clicked, false);
+

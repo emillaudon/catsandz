@@ -12,11 +12,6 @@ let tempY = 0;
                 let indexOfMapX = map.indexOf(tempX);
                 let indexOfMapY = map[i].indexOf(tempY);
 
-                console.log(tempX);
-                console.log(tempY);
-                
-                console.log(indexOfMapX);
-                console.log(indexOfMapY)
                 
                 mapLayer2.drawImage(houseOne, (indexOfMapX * 25) + 233, 230 - (indexOfMapY * 18), 10, 12);
                 
@@ -29,4 +24,4 @@ let tempY = 0;
 
 }
 
-loadHouses();
+changePage();
