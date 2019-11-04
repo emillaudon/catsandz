@@ -1,6 +1,10 @@
 //Deklarerar variablerna som kommer att användas för att navigera. 
 //När arrayen som innehåller bakgrunderna navigeras kommer de att
 //användas
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    // some code..
+   }
+
 let backgroundY = 53;
 
 let x = 1;
