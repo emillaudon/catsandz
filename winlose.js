@@ -3,7 +3,7 @@ let lostAlready = false;
 checkWin = () => {
 
     if (wonAlready === false) {
-        if(catsCaught === 2) {
+        if(catsCaught === 3) {
             wonAlready = true;
             
                 let canvasLose = document.createElement("canvas");
@@ -50,6 +50,7 @@ checkLoss = () => {
     }
     setTimeout(function() {
             if(zombieX === x && zombieY === y) {
+                laugh.play();
                 lostAlready = true;
                 let canvasLose = document.createElement("canvas");
                 document.body.appendChild(canvasLose);
@@ -95,10 +96,17 @@ checkLoss = () => {
 
 
 restart = () => {
+    if (lostAlready === true || wonAlready === true) {
+        let blackWindow = document.querySelector(".lose")
+        document.body.removeChild(document.querySelector(".lose"));
+    } else {
+        let blackWindow = document.querySelector(".menu")
+        document.body.removeChild(document.querySelector(".menu"));
+
+    }
     lostAlready = false;
     wonAlready = false;
-    let blackWindow = document.querySelector(".lose")
-    document.body.removeChild(document.querySelector(".lose"));
+
 
     makeMap();
     x = 1;

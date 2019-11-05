@@ -5,6 +5,9 @@ catOne.src = "Art/Characters/1.png";
 let catTwo = new Image();
 catTwo.src = "Art/Characters/2.png";
 
+let catThree = new Image();
+catThree.src = "Art/Characters/3.png";
+
 let houseOne = new Image();
 houseOne.src = "Art/Backgrounds/Houses/WoodenHouse-Pixel/House.png";
 
@@ -19,6 +22,18 @@ restartButton.src = "Art/restart.png";
 
 let zombieToast = new Image();
 zombieToast.src="Art/Characters/ZombieToast.png";
+
+let hardSelection = new Image();
+hardSelection.src ="Art/hard.png";
+
+let easySelection = new Image();
+easySelection.src ="Art/easy.png";
+
+let normalSelection = new Image();
+normalSelection.src ="Art/normal.png";
+
+let textSelect = new Image();
+textSelect.src = "Art/restartText.png";
 
 
 

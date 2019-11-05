@@ -7,6 +7,10 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 
 let backgroundY = 53;
 
+let difficulty = 2;
+let changedDiff = 0;
+let chosenDiff = 0;
+
 let x = 1;
 let y = 1;
 
@@ -23,6 +27,9 @@ checkCat1 = () => {
 checkCat1();
 let cat2X = Math.floor(Math.random() * (6 - 3) + 3);
 let cat2Y = Math.floor(Math.random() * (6 - 3) + 3);
+
+let cat3X = Math.floor(Math.random() * (4 - 2) + 2);
+let cat3Y = Math.floor(Math.random() * (6 - 1) + 1);
 
 
 let zombieX = Math.floor(Math.random() * (6 - 2) + 2);
@@ -328,11 +335,13 @@ let catCount = new Image();
 let catCountImg = new Image();
 let catCount2 = new Image();
 let catCount3 = new Image();
+let catCount4 = new Image();
 mapUi.src = "Art/karta.png";
 mapPointer.src = "Art/pointer.png";
 catCount.src = "Art/x0.png";
 catCount2.src = "Art/x1.png";
 catCount3.src = "Art/x2.png";
+catCount4.src = "Art/3.png";
 
 catCountImg.src = "Art/Mask Group 2.png";
 mapUi.onload = function() {
@@ -417,18 +426,25 @@ changePage = () => {
         if (x === cat2X && y === cat2Y) {
             layer14.drawImage(catTwo,  270, backgroundY + 650, 100, 100);
         }
+        if (x === cat3X && y === cat3Y) {
+            layer14.drawImage(catThree, 88 , backgroundY + 627, 100, 100);
+        }
         if (x === zombieX && y === zombieY) {
             layer14.drawImage(zombie,  120, backgroundY + 420, 200, 300);
         }
 
         if (zombieX === x + 1 && zombieY === y || zombieY === y + 1 && zombieX === x || zombieX === x - 1 && zombieY === y || zombieY === y - 1 && zombieX === x){
-            mapLayer3.drawImage(zombie, (zombieX * 25) + 233, 230 - (zombieY * 18), 10, 12);
+            mapLayer3.drawImage(zombie, (zombieX * 25) + 233, (177 + backgroundY) - (zombieY * 18), 10, 12);
+            zombieClose.play();
         }
         if (cat1X === x + 1 && cat1Y === y || cat1Y === y + 1 && cat1X === x || cat1X === x - 1 && cat1Y === y || cat1Y === y - 1 && cat1X === x){
-            mapLayer3.drawImage(catOne, (cat1X * 25) + 233, 230 - (cat1Y * 18), 10, 12);
+            mapLayer3.drawImage(catOne, (cat1X * 25) + 233, (177 + backgroundY) - (cat1Y * 18), 10, 12);
         }
         if (cat2X === x + 1 && cat2Y === y || cat2Y === y + 1 && cat2X === x || cat2X === x - 1 && cat2Y === y || cat2Y === y - 1 && cat2X === x) {
-            mapLayer3.drawImage(catTwo, (cat2X * 25) + 233, 230 - (cat2Y * 18), 10, 12);
+            mapLayer3.drawImage(catTwo, (cat2X * 25) + 233, (177 + backgroundY) - (cat2Y * 18), 10, 12);
+        }
+        if (cat3X === x + 1 && cat3Y === y || cat3Y === y + 1 && cat3X === x || cat3X === x - 1 && cat3Y === y || cat3Y === y - 1 && cat3X === x){
+            mapLayer3.drawImage(catThree, (cat3X * 25) + 233, (177 + backgroundY) - (cat3Y * 18), 10, 12);
         }
         loadHouses();
     }
