@@ -10,38 +10,11 @@ let movement = canvasMovement.getContext('2d');
 let gameHeight = 846;
 let gameWidth = 414;
 
-let vh = window.innerHeight * 0.01;
-let vw = window.innerWidth * 0.01;
-
-
-
-//ladda in höger pil
-/*
-let rightArrow = new Image();
-rightArrow.src = "Art/pilE.png";
-rightArrow.onload = function() {
-    movement.drawImage(rightArrow, 365, 630);
-}
-//ladda in vänster pil
-let leftArrow = new Image();
-leftArrow.src="Art/pilW.png";
-leftArrow.onload = function() {
-    movement.drawImage(leftArrow, 0, 630);
-}
-let upArrow = new Image();
-upArrow.src="Art/pilN.png";
-upArrow.onload = function() {
-    movement.drawImage(upArrow, 182, 415);
-}
-let downArrow = new Image();
-downArrow.src="Art/pilS.png";
-downArrow.onload = function() {
-    movement.drawImage(downArrow, 182, 780);
-}
-*/
-
+let vh = /*window.innerHeight*/ 846 * 0.01;
+let vw = /*window.innerWidth*/ 414 * 0.01;
 
 openMenu = () => {
+        clickSound();
         let canvasMenu = document.createElement("canvas");
         document.body.appendChild(canvasMenu);
         canvasMenu.classList.add("menu");
@@ -94,25 +67,29 @@ clickedMenu = (e) => {
     }
     if (h>vw * 87 && h<vw * 98 && v>vh * 0.7 && v<vh * 6 && loading === false && lostAlready === false && wonAlready === false) {
         document.body.removeChild(document.querySelector(".menu"));
+        clickSound();
     }
     //easy
     if(h>vw * 20 && h<vw * 37.5 && v>vh * 30 && v<vh * 37){
         chosenDiff = 1;
         menuLayer.clearRect(0, 0, canvas.width, canvas.height);
         menuLayer.drawImage(easySelection, 0, 0);
-        menuLayer.drawImage(textSelect, vw * 23, vh * 50);
+        menuLayer.drawImage(textSelect, vw * 23, vh * 45);
+        clickSound();
     } 
     if (h>vw * 37.5 && h<vw * 54.5 && v>vh * 32 && v<vh * 37) {
         menuLayer.clearRect(0, 0, canvas.width, canvas.height);
         menuLayer.drawImage(normalSelection, 0, 0);
-        menuLayer.drawImage(textSelect, vw * 23, vh * 50);
+        menuLayer.drawImage(textSelect, vw * 23, vh * 45);
         chosenDiff = 2;
+        clickSound();
     }
     if (h>vw * 55 && h<vw * 71 && v>vh * 32 && v<vh * 37) {
         menuLayer.clearRect(0, 0, canvas.width, canvas.height);
         menuLayer.drawImage(hardSelection, 0, 0);
-        menuLayer.drawImage(textSelect, vw * 23, vh * 50);
+        menuLayer.drawImage(textSelect, vw * 23, vh * 45);
         chosenDiff = 3;
+        clickSound();
     }
 
     
@@ -122,7 +99,7 @@ clickedMenu = (e) => {
 
 
 pilar.onload = function() {
-    movement.drawImage(pilar, 0, 427 + backgroundY);
+    movement.drawImage(pilar, 0, 427 + backgroundY, 414, 359 );
 }
 
 let loading = false;

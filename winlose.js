@@ -1,5 +1,7 @@
 let wonAlready = false;
 let lostAlready = false;
+let restartingOn = false;
+
 checkWin = () => {
 
     if (wonAlready === false) {
@@ -93,9 +95,26 @@ checkLoss = () => {
     }, 2000);
 }
 
-
+restarting = () => {
+        restartingOn = true;
+        let time = 0;
+        let opacity = 0;
+        let id = setInterval(frame, 10);
+        function frame() {
+        if (time === 200) {
+            restartingOn = false;
+        }
+        if (time === 300) {
+            clearInterval(id);
+        } else if (time < 300){
+        time++;
+        }
+    }
+}
 
 restart = () => {
+    clickSound();
+    restarting();
     if (lostAlready === true || wonAlready === true) {
         let blackWindow = document.querySelector(".lose")
         document.body.removeChild(document.querySelector(".lose"));
@@ -142,3 +161,5 @@ restart = () => {
     changePage();
     movement.drawImage(pilar, 0, 480);
 }
+
+

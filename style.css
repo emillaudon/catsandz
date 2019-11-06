@@ -5,6 +5,19 @@
     z-index: 500;
     opacity: 0;
 }
+.startmenu {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 501;
+}
+.startmenuClicker {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 502;
+    opacity: 0;
+}
 .lose {
     position: absolute; 
     left: 0;
@@ -18,7 +31,7 @@
 }
 .canvas {
     width: 100vw;
-    height: 80vh;
+    height: 100vh;
 }
 .first {
     position: absolute;
