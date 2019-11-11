@@ -1,10 +1,6 @@
 //Deklarerar variablerna som kommer att användas för att navigera. 
 //När arrayen som innehåller bakgrunderna navigeras kommer de att
 //användas
-if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-    // some code..
-   }
-
 let backgroundY = 53;
 
 let difficulty = 2;
@@ -14,6 +10,7 @@ let chosenDiff = 0;
 let x = 1;
 let y = 1;
 
+//Randomar var vilka koordinater katterna ska vara på och kollar så att de inte spawnar på samma plats, då körs funktionen igen.
 let cat1X = Math.floor(Math.random() * (3 - 1) + 1);
 let cat1Y = Math.floor(Math.random() * (3 - 1) + 1);
 checkCat1 = () => {
@@ -42,6 +39,7 @@ let catsCaught = 0;
 
 //Funktion för att generera x-axeln för bakgrunderna för att göra
 //varje sida unik.
+//använder minus för att bilderna ska flyttas på x-axeln.
 function getNonZeroRandomNumber(){
     var random = Math.floor(Math.random()*99) * -4;
     if(random==0) return getNonZeroRandomNumber();
@@ -51,7 +49,9 @@ function getNonZeroRandomNumber(){
 //array för kartan, här finns alla nummer som genereras 
 let map = [];
 
-//Den här funktionen autogenerarar kartan varje gång spelet startas
+//Den här funktionen autogenerarar kartan varje gång spelet startas genom att 
+//stoppa in 13 värden i en array som stoppas in i en array och sen stoppas in i en till array för att skapa något som går att avända som
+//koordinater
 
 makeMap = () => {
     map = [];
@@ -152,7 +152,7 @@ canvas18.classList.add("seventeenth");
 
 
 
-
+//storlek på lager
 canvas.width = 414;
 canvas.height = 846;
 
@@ -207,6 +207,8 @@ canvas17.height = 846;
 canvas18.width = 414;
 canvas18.height = 846;
 
+//ställer in alla lager som 2dcontext
+
 let layer1 = canvas.getContext('2d');
 let layer2 = canvas2.getContext('2d');
 let layer3 = canvas3.getContext('2d');
@@ -227,7 +229,7 @@ let mapLayer3= canvas18.getContext('2d');
 let fadeLayer= canvas17.getContext('2d');
 
 
-
+//stänger av imagesmoothing för snyggare grafik
 layer1.imageSmoothingEnabled = false;
 layer2.imageSmoothingEnabled = false;
 layer3.imageSmoothingEnabled = false;
@@ -248,10 +250,11 @@ mapLayer3.imageSmoothingEnabled = false;
 
 
 
-
+//gör fadelayret svart för att göra en fade när man byter plats
 fadeLayer.fillStyle= "black";    
 fadeLayer.fillRect(0, 0, 414, 846); 
 
+//laddar in bilderna som utgör bakgrunden och använder x-axeln som finns i arrayen.
 let first = new Image();
 first.src = "Art/Backgrounds/PixelForest/PNG/Background layers/Layer_0010_1.png";
 first.onload = function() {
@@ -365,6 +368,7 @@ menyKnapp.onload = function() {
 
 
 //Funktion för att gå till annan plats, raderar först all och ritar sen upp baserat på map arrayen
+//Kollar om det finns en katt, hus, zombie och ritar isåfall upp dem. Ritar även om minimaåpen varje gång.
 changePage = () => {
         layer1.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -421,6 +425,8 @@ changePage = () => {
         layer13.drawImage(thirteenth, map[x][y][12], backgroundY);
         //layer13.fillStyle = "dark";
         //layer13.fillRect(0,770, 414, 100)
+
+        checkCats();
         
         if (x === cat1X && y === cat1Y) {
             //layer14.drawImage(catOne, 88 , backgroundY + 627, 100, 100);
@@ -441,6 +447,15 @@ changePage = () => {
         if (zombieX === x + 1 && zombieY === y || zombieY === y + 1 && zombieX === x || zombieX === x - 1 && zombieY === y || zombieY === y - 1 && zombieX === x){
             mapLayer3.drawImage(zombie, (zombieX * 25) + 233, (177 + backgroundY) - (zombieY * 18), 10, 12);
             zombieClose.play();
+        }
+        if (difficulty === 1) {
+            if (zombieX === x + 2 && zombieY === y || zombieY === y + 2 && zombieX === x || zombieX === x - 2 && zombieY === y || zombieY === y - 2 && zombieX === x ||
+                zombieX === x - 1 && zombieY === y + 1 || zombieY === y - 1 && zombieX === x + 1 || zombieX === x - 2 && zombieY === y + 1 || zombieY === y - 2 && zombieX === x + 1||
+                zombieX === x + 1 && zombieY === y + 1 || zombieY === y + 1 && zombieX === x + 1 || zombieX === x - 1 && zombieY === y - 1 || zombieY === y - 1 && zombieX === x - 1 ||
+                zombieX === x + 1 && zombieY === y + 2 || zombieY === y + 1 && zombieX === x + 2 || zombieX === x - 1 && zombieY === y - 2 || zombieY === y - 1 && zombieX === x - 2) {
+                mapLayer3.drawImage(zombie, (zombieX * 25) + 233, (177 + backgroundY) - (zombieY * 18), 10, 12);
+                zombieClose.play();
+                }
         }
         if (cat1X === x + 1 && cat1Y === y || cat1Y === y + 1 && cat1X === x || cat1X === x - 1 && cat1Y === y || cat1Y === y - 1 && cat1X === x){
             mapLayer3.drawImage(catOne, (cat1X * 25) + 233, (177 + backgroundY) - (cat1Y * 18), 10, 12);

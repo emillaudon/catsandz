@@ -1,3 +1,7 @@
+
+
+//funktionen kollar om det finns ett hus på arrayen som genererats genom att kolla på värde 13 i varje del av arrayen. Om värdet är mindre än
+// 360 ritas ett hus ut på rätt ruta på minimapen.
 loadHouses = () => {
 let tempX = 0;
 let tempY = 0;

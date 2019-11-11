@@ -1,4 +1,4 @@
-
+//variabler för ljuden
 let backGround;
 let walking;
 let zombieClose;
@@ -13,7 +13,10 @@ let click6;
 
 let clickedClick = 0;
 
-  //ambient
+
+
+//funktionen för att skapa ett nytt ljud, kollar om ljudet är bakgrundsljudet med hjälp av "fixvolume" som sätts till 1 när man trycker på startknappen
+// och sänker ljudet till 10%. 
 function sound(src) {
     this.sound = document.createElement("audio");
     this.sound.src = src;
@@ -23,12 +26,16 @@ function sound(src) {
     document.body.appendChild(this.sound);
         this.play = function() {
             this.sound.play();
+            if (fixvolume === 1) {
+                this.sound.volume = 0.1;
+                fixvolume = 0;
+            }
         }
         this.stop = function() {
             this.sound.pause();
         }
     }
-
+//laddar in ljudfilerna
 backGround = new sound("Sounds/background.mp3");
 walking = new sound("Sounds/walk grass.wav");
 zombieClose = new sound("Sounds/zombie.wav");
@@ -42,12 +49,14 @@ click5 = new sound("Sounds/click2.wav");
 click6 = new sound("Sounds/click2.wav");
 catClose = new sound("Sounds/meow.mp3");
 
+//ljudet när man rör sig till en ny plats.
 walkingSound = () => {
     walking.play();
     walking.play();
     walking.play();
 }
-
+//klickljud när man klickar på knappar
+//Fick använda clickedClick och flera "klickljud" för att göra så att man kan klicka på flera saker samtidigt, annars väntar den tills att ljudet spelats upp innan det kan köras igen
 clickSound = () => {
     click.play();
     console.log("1");

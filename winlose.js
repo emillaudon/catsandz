@@ -2,6 +2,9 @@ let wonAlready = false;
 let lostAlready = false;
 let restartingOn = false;
 
+//funktion för att kolla om man vunnit, kollar man man har 3 katter och gör isåfall ett nytt svart lager som fadas in med texten you lose
+//och en knapp för att starta om.
+
 checkWin = () => {
 
     if (wonAlready === false) {
@@ -45,7 +48,8 @@ checkWin = () => {
 }
 }
 
-
+//kolla om man förlorar, vilket man gör om man är på samma plats som zombien. 
+//Kör funktion för att rita upp zombieanimationen på ett nytt lager som fadar in och ger texten you lose samt en restartknapp. 
 checkLoss = () => {
     if (zombieX === x && zombieY === y){
     lostAlready = true;
@@ -94,7 +98,7 @@ checkLoss = () => {
     }
     }, 2000);
 }
-
+//Ser till att restartingOn är true för att förhindra att det går att klicka på saker under tiden man startar om.
 restarting = () => {
         restartingOn = true;
         let time = 0;
@@ -111,7 +115,8 @@ restarting = () => {
         }
     }
 }
-
+//funktion för att starta om. tar bort lager som skapats nöär man vunnit eller förlorat och ställer tillbaka alla katter och zombien till
+//nya platser på kartan
 restart = () => {
     clickSound();
     restarting();

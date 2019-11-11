@@ -1,4 +1,4 @@
-//Kattbild
+//laddar in bilder
 let catOne = new Image();
 catOne.src = "Art/Characters/1.png";
 
@@ -63,7 +63,7 @@ makeZombie = (loseLayer) => {
     let scale = 3;
 
     
-
+    //uppdaterar genom att ta bort den förra framen, fyller med svart pga svart bakgrund
     updateFrame = (layerLose) => {
         currentFrame = ++currentFrame % frameCount;
         srcX = currentFrame * spriteWidth;
@@ -73,14 +73,14 @@ makeZombie = (loseLayer) => {
         layerLose.fillRect(posX, posY, scale * spriteWidth, scale * spriteHeight); 
         
     }
-
+    //här ritar den nästa frame i spriten
     draw = (layerLose) => {
         updateFrame(layerLose);
         layerLose.drawImage(zombieToast, srcX, srcY, spriteWidth, spriteHeight, posX, posY, spriteWidth * scale, spriteHeight * scale);
 
     }
 
-
+//Funktion för att rita upp zombien som kommer när man dör
     getZombie = (loseLayer) => {
         let layerLose = loseLayer;
         let id = setInterval(frame, 100);
@@ -96,7 +96,8 @@ makeZombie = (loseLayer) => {
     getZombie(loseLayer);
 }
 
-
+//Animerar katterna genom att flytta dem upp och ner och ta bort den gamla bilden om och om igen, kollar även så att man inte vunnit eller förlorat
+//och ser isåfall till att de inte spelas upp, utan då får man bara en statisk katt.
 makeCatOne = () => {
     let posX = 88;
     let posY = backgroundY + 627;
@@ -132,7 +133,6 @@ makeCatOne = () => {
         layer14.drawImage(catOne, posX, posY + (currentFrame * 3), 100, 100);
         }
     }
-
 
     getCat = () => {
         let id = setInterval(frame, 120);

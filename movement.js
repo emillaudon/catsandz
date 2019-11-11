@@ -1,3 +1,4 @@
+//Canvaslagret som lyssnar efter klick och har navigationspilarna laddas in här
 let canvasMovement = document.createElement("canvas");
 document.body.appendChild(canvasMovement);
 canvasMovement.classList.add("movement");
@@ -10,9 +11,27 @@ let movement = canvasMovement.getContext('2d');
 let gameHeight = 846;
 let gameWidth = 414;
 
+//Här räknas viewheight och width ut för att göra spelet mer responsivt.
 let vh = /*window.innerHeight*/ 846 * 0.01;
 let vw = /*window.innerWidth*/ 414 * 0.01;
 
+//Funktion för att se till att katterna inte befinner sig på samma plats. Om de råkar vara det flyttas de. 
+//Körs varje gång man laddar en ny plats.
+checkCats = () => {
+    if (cat1X === cat2X && cat1X < 6 || cat1X === cat3X && cat1X < 6) {
+        cat1X += 1
+    } else if (cat1X === cat2X && cat1X > 1 || cat1X === cat3X && cat1X > 1){
+        cat1X -= 1
+    }
+
+    if (cat3X === cat2X && cat3X < 6 || cat2Y === cat3Y && cat3X < 6) {
+        cat3X += 1
+    } else if (cat3X === cat2X && cat3X > 6 || cat2Y === cat3Y && cat3X > 6) {
+        cat3X -= 1
+    }
+}
+//Funktion för att öppna menyn
+//Skapar ett nytt lager över alla andra och lägger till en listener för man inte ska råka röra spelet
 openMenu = () => {
         clickSound();
         let canvasMenu = document.createElement("canvas");
@@ -50,7 +69,8 @@ openMenu = () => {
         }
     }
 }
-
+//När man klickar i menyn körs denna funktionen, den kollar om man klickar på någon av knapparna. 
+//Om man stänger menyn tas canvasen bort från DOMen.
 clickedMenu = (e) => {
     e.preventDefault();
     let h = e.clientX;
@@ -69,7 +89,6 @@ clickedMenu = (e) => {
         document.body.removeChild(document.querySelector(".menu"));
         clickSound();
     }
-    //easy
     if(h>vw * 20 && h<vw * 37.5 && v>vh * 30 && v<vh * 37){
         chosenDiff = 1;
         menuLayer.clearRect(0, 0, canvas.width, canvas.height);
@@ -97,11 +116,15 @@ clickedMenu = (e) => {
 }
 
 
-
+//Ritar ut pilarna direkt första gången
 pilar.onload = function() {
     movement.drawImage(pilar, 0, 427 + backgroundY, 414, 359 );
 }
 
+
+//Funktion för att byta plats genom en fadande skärm.
+//Det som händer är att det finns en canvas med 0 opacity som under en tid går till 1 opacity och sedan till 0 igen. Under tiden den är på
+// 1 opacity kör spelet alla funktiuoner som krävs för att ladda en ny sida. 
 let loading = false;
 fadeScreenMove = () => {
     if (wonAlready === false || lostAlready === false && loading === false) {
@@ -151,7 +174,8 @@ fadeScreenMove = () => {
         loading = true;
     }
 }
-
+//Funktioner för att flytta katterna
+//När catmovement når 1 flyttar katten sig i en random riktning baserat på en math.random som ger 1 eller 2.
 let catMovement = 0.25;
 let cat2Movement = 0.25;
 let cat3Movement = 0.25;
@@ -276,7 +300,10 @@ moveCat3 = () => {
     }
 }
 
-//click på pilar
+//Den här funktionen körs när man klickar på navigationslagret, om man klickar på en av navigationspilarna kollar den om man förlorat eller vunnit redan och 
+//ändrar sedan ens koordinater beroende på var man klickat och kör sen funktionen för att byta plats.
+
+//Den kollar även om man klickar på katterna och lägger isåfall till 1 till score och tar bort katten från kartan och kollar om man har tagit alla.
 clicked = (e) => {
     e.preventDefault();
     let h = e.clientX;
@@ -287,17 +314,17 @@ clicked = (e) => {
         openMenu();
         console.log("ja");
     }
-    
+    //klick västerut
     if (h>vw * 1 && h<vw * 12 && v>vh * 72 && v<vh * 81 && loading === false) {
-        console.log("vänster");
         if (x > 0) {
         x -= 1;
         mapX -= 25
         
         fadeScreenMove();
         }
+
+        //klick österut
     } else if (h>vw * 87 && h<vw * 99 && v>vh * 72 && v<vh * 81 && loading === false) {
-        console.log("höger");
         if (x < 6) {
         x += 1;
         mapX += 25;
@@ -305,16 +332,17 @@ clicked = (e) => {
         fadeScreenMove();
         }
     }
+
+    //klick söderut
     if (h>vw * 43 && h<vw * 56 && v>vh * 92 && v<vh * 99 && loading === false) {
-        console.log("ner");
         if (y > 0) {
         y -= 1;
         mapY += 20
         
         fadeScreenMove();
         }
+        //klick norrut
     } else if (h>vw * 43 && h<vw * 56 && v>vh * 55 && v<vh * 64 && loading === false) {
-        console.log("upp");
         if (y < 6) {
         y += 1;
         mapY -= 20
@@ -322,7 +350,8 @@ clicked = (e) => {
         
         fadeScreenMove();
         }
-        //Klick på katt2
+
+        //klick på katterna när de är på skärmen
     } else if (h>vw * 59 && h<vw * 93 && v>vh * 80 && v<vh * 95 && cat2X === x && cat2Y === y) {
         catsCaught +=1;
         layer14.clearRect(0, 0, canvas.width, canvas.height);
@@ -353,7 +382,6 @@ clicked = (e) => {
             mapLayer1.drawImage(catCount2, 50, 20);
             mapLayer1.drawImage(catCountImg, 10, 10);
             console.log("funkar");
-            //klicka på katt1
                 } else if (catsCaught === 2) {
                 mapLayer1.drawImage(catCount3, 50, 20);
                 mapLayer1.drawImage(catCountImg, 10, 10);
@@ -384,6 +412,7 @@ clicked = (e) => {
                         }
                     }
     checkWin();
+    //Om man har förlorat kollar den här if:en om man klickar på restartknappen.
     if(lostAlready === true && h>vw * 21 && h<vw * 79 && v>vh * 49 && v<vh * 57 || wonAlready === true && h>vw * 21 && h<vw * 79 && v>vh * 49 && v<vh * 57) {
         console.log("restart");
         restart();
